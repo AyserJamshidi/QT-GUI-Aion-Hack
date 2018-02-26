@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Source Files\LoginRequest">
+      <UniqueIdentifier>{bc2b0c75-e7c9-4f23-98c8-4d4cc87ffe2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\LoginRequests">
+      <UniqueIdentifier>{7d22d502-f01f-4d8c-a348-8256c886265b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bypass">
+      <UniqueIdentifier>{08d747d5-4b02-4ffb-9499-e643c12a473c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Bypass">
+      <UniqueIdentifier>{b91485c9-6e7d-4f80-8009-ede73427246e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WinToast">
+      <UniqueIdentifier>{869b6333-846e-463f-b052-376cf4cf1acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\WinToast">
+      <UniqueIdentifier>{4c86bbde-5ff6-4c38-ae5e-5c5e6a4c2fef}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_QtGuiApplication1.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginRequest.cpp">
+      <Filter>Source Files\LoginRequest</Filter>
+    </ClCompile>
+    <ClCompile Include="Bypass\MainBypass.cpp">
+      <Filter>Source Files\Bypass</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MainWindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WinToast\WinToast.cpp">
+      <Filter>Source Files\WinToast</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="QtGuiApplication1.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="QtGuiApplication1.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MainWindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_QtGuiApplication1.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginRequests.h">
+      <Filter>Header Files\LoginRequests</Filter>
+    </ClInclude>
+    <ClInclude Include="Bypass\MainBypass.h">
+      <Filter>Header Files\Bypass</Filter>
+    </ClInclude>
+    <ClInclude Include="WinToast\WinToast.h">
+      <Filter>Header Files\WinToast</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="QtGuiApplication1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\loading.gif">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
