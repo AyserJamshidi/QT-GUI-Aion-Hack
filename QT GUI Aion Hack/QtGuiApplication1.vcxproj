@@ -70,6 +70,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FindMainWindowHWND.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_MainWindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -101,6 +102,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FindMainWindowHWND.h" />
     <ClInclude Include="GeneratedFiles\ui_QtGuiApplication1.h" />
     <ClInclude Include="LoginRequests.h" />
     <ClInclude Include="Bypass\MainBypass.h" />

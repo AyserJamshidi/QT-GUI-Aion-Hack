@@ -1,6 +1,8 @@
 #include "MainWindow.h"
 #include "Bypass\MainBypass.h"
+#include "FindMainWindowHWND.h"
 
+#include <qdebug.h>
 #include <qsignalmapper.h>
 #include <qmovie.h>
 #include <qmessagebox.h>
@@ -8,42 +10,16 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include <WinToast\WinToast.h>
+#include <qmetaobject.h>
 
 #define HOME_INDEX 0
 #define HACK_INDEX 1
 
 QMovie* movie;
 int globalCurrentIndex;
-WinToastLib::WinToastTemplate templ = WinToastLib::WinToastTemplate(WinToastLib::WinToastTemplate::Text02);
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
 	ui->setupUi(this);
-
-	WinToastLib::WinToast::instance()->setAppName(L"Lmfaoown's Aion Hack");
-	WinToastLib::WinToast::instance()->setAppUserModelId(
-		WinToastLib::WinToast::configureAUMI(L"Company Name", L"Product Name", L"Sub Product", L"Version #"));
-	if (!WinToastLib::WinToast::instance()->initialize()) {
-		qDebug() << "Error, your system in not compatible!";
-	}
-
-	templ.setTextField(L"Do you think this feature is cool?", WinToastLib::WinToastTemplate::FirstLine);
-	templ.setTextField(L"Ofc,it is!", WinToastLib::WinToastTemplate::SecondLine);
-
-	std::vector<std::wstring> actions;
-	actions.push_back(L"Yes");
-	actions.push_back(L"Maybe");
-	actions.push_back(L"Maybe");
-	actions.push_back(L"No");
-	templ.setExpiration(2000);
-	for (auto const &action : actions)
-		templ.addAction(action);
-	INT64 toastInt = WinToastLib::WinToast::instance()->showToast(templ, new CustomHandler());
-
-
-
-
-
 
 	// Custom flags we can't set inside QT Designer
 	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint); // Disable window resizing
@@ -92,71 +68,66 @@ void MainWindow::StackedWidgetController(int CC) {
 	}
 }
 
+void MainWindow::SetStatusText(QString stringToSend) {
+	QMetaObject::invokeMethod(ui->statusLabel, "setText", Qt::QueuedConnection, Q_ARG(QString, stringToSend));
+}
+
 void MainWindow::HackLoop() {
 	MainBypass mBypass;
 
-	mBypass.EnableDebugPriv();
 	while (globalCurrentIndex == HACK_INDEX) {
 		DWORD xCoronaHostProcessID, NCLauncherID, aionProcessID;
 
-		NCLauncherID = mBypass.GetProcID(L"NCLauncherR.exe");
-		if (NCLauncherID != 0) 
-			mBypass.KillProcessID(NCLauncherID);
-
 		xCoronaHostProcessID = mBypass.GetProcID(L"xcoronahost.xem");
-		if (xCoronaHostProcessID != 0) { 
-			std::this_thread::sleep_for(std::chrono::seconds(2)); 
-			mBypass.SuspendProcess(xCoronaHostProcessID, TRUE);
+		if (xCoronaHostProcessID != 0) {
+			NCLauncherID = mBypass.GetProcID(L"NCLauncherR.exe");
 
-			aionProcessID = mBypass.GetParentProcessID(xCoronaHostProcessID);
+			if (NCLauncherID != 0)
+				mBypass.KillProcessID(NCLauncherID);
 
-			//HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, true, aionProcessID);
-		}
-		//WaitForProcess(L"Aion.bin");
-		//aionProcessID = GetProcID(L"Aion.bin");
+			std::this_thread::sleep_for(std::chrono::seconds(1)); // If we have issues put this back to 2
+			if (mBypass.SuspendProcess(xCoronaHostProcessID, true)) {
 
-		//if (NCLauncherID != 0)
-		//	KillProcessID(NCLauncherID);
+				aionProcessID = mBypass.GetParentProcessID(xCoronaHostProcessID);
 
+				MODULEENTRY32 xCoronaModule;
 
-		/*Sleep(2000);
+				xCoronaModule = mBypass.GetModule(aionProcessID, L"xcorona_64.xem");
 
-		//SuspendProcess(xCoronaHostProcessID, TRUE);
+				if (xCoronaModule.hModule > 0) {
+					if (xCoronaModule.modBaseAddr != 0) {
+						qDebug() << "xcorona_64.xem base addr hex is " << std::hex << xCoronaModule.modBaseAddr;
 
-		// Now is the time to acquire xcorona_64.xem module base address
+						if (mBypass.SuspendX3Threads(aionProcessID) && mBypass.SuspendProcess(xCoronaHostProcessID, false)) {
+							//qDebug() << "1 = " << mBypass.SuspendX3Threads(aionProcessID);
 
-		std::cout << "aionProcessID = " << aionProcessID << std::endl;
+							//qDebug() << "2 = " << mBypass.SuspendProcess(xCoronaHostProcessID, false);
+							DWORD xddID;
+							mBypass.WaitForProcess(L"xxd-0.xem");
+							xddID = mBypass.GetProcID(L"xxd-0.xem");
 
-		MODULEENTRY32 xCoronaModule;
-
-		xCoronaModule = GetModule(aionProcessID, L"xcorona_64.xem");
-
-		if (xCoronaModule.hModule > 0) {
-			std::wcout << "xcorona_64.xem base addr hex is " << std::hex << xCoronaModule.modBaseAddr << std::endl;
+							while (FindWindowEx(NULL, NULL, TEXT("SplashWindowClass"), NULL) != 0) {
+								std::this_thread::sleep_for(std::chrono::milliseconds(100));
+							}
+							mBypass.KillProcessID(xddID);
+							mBypass.KillProcessID(xCoronaHostProcessID);
+						} else {
+							// Couldn't suspend XIGNCODE3, admin rights issues?
+						}
+					} else {
+						// xCoronaModule base address could not be found
+					}
+				} else {
+					qDebug() << "No module found...?";
+				}
+			} else {
+				// Couldn't suspend xCoronaHostProcessID
+			}
 		} else {
-			std::cout << "No module found...?" << std::endl;
-			return 0;
+			// No xcoronahost.xem exists
 		}
-
-		SuspendX3Threads(aionProcessID);
-
-		SuspendProcess(xCoronaHostProcessID, FALSE);
-
-		DWORD xddID;
-		WaitForProcess(L"xxd-0.xem");
-		Sleep(2500);
-		xddID = GetProcID(L"xxd-0.xem");
-
-		if (xddID != 0)
-			KillProcessID(xddID);
-		KillProcessID(xCoronaHostProcessID);
-
-		return 1;
-		std::cout << "Looping.." << std::endl;
-
-		Sleep(10);*/
+		Sleep(100);
 	}
-	//CloseProgram();
 }
 
 void MainWindow::LoadHack(bool turnOn) {

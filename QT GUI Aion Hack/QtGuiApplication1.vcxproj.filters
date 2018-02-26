@@ -46,6 +46,12 @@
     <Filter Include="Header Files\WinToast">
       <UniqueIdentifier>{4c86bbde-5ff6-4c38-ae5e-5c5e6a4c2fef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Tools">
+      <UniqueIdentifier>{0471cafc-30e5-4a0a-ac6a-5ca47c964c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tools">
+      <UniqueIdentifier>{39265942-ede1-47d7-a811-4e396871df29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,6 +78,9 @@
     <ClCompile Include="WinToast\WinToast.cpp">
       <Filter>Source Files\WinToast</Filter>
     </ClCompile>
+    <ClCompile Include="FindMainWindowHWND.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="QtGuiApplication1.ui">
@@ -96,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="WinToast\WinToast.h">
       <Filter>Header Files\WinToast</Filter>
+    </ClInclude>
+    <ClInclude Include="FindMainWindowHWND.h">
+      <Filter>Header Files\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

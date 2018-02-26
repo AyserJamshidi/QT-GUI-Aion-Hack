@@ -9,7 +9,7 @@ public:
 	DWORD GetProcID(const wchar_t * exeName);
 	MODULEENTRY32 GetModule(DWORD dwProcID, const wchar_t * moduleName);
 	BOOL SuspendProcess(DWORD ProcessId, bool Suspend);
-	bool KillProcessID(DWORD dwProcessID);
+	BOOL KillProcessID(DWORD dwProcessID);
 	void WaitForProcess(const wchar_t * pText);
 	bool SuspendX3Threads(DWORD ownerProcessID);
 	DWORD GetParentProcessID(DWORD dwProcessID);

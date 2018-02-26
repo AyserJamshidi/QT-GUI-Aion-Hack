@@ -100,7 +100,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 636, 21));
+        menuBar->setGeometry(QRect(0, 0, 636, 26));
         menuNew = new QMenu(menuBar);
         menuNew->setObjectName(QStringLiteral("menuNew"));
         MainWindow->setMenuBar(menuBar);

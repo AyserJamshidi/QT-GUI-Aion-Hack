@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-#include <qthread.h>
+//#include <qthread.h>
 
 #include "ui_QtGuiApplication1.h"
 
@@ -12,6 +12,7 @@ public:
 	MainWindow(QWidget* parent = Q_NULLPTR);
 	~MainWindow();
 	void MainWindow::HackLoop();
+	void SetStatusText(QString stringToSend);
 
 private:
 	Ui::MainWindow* ui;

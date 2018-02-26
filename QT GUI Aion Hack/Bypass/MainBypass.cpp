@@ -124,7 +124,7 @@ BOOL MainBypass::SuspendProcess(DWORD ProcessId, bool Suspend) {
 	return false; //(rvBool);
 }
 
-bool MainBypass::KillProcessID(DWORD dwProcessID) {
+BOOL MainBypass::KillProcessID(DWORD dwProcessID) {
 	HANDLE tmpHandle = OpenProcess(PROCESS_ALL_ACCESS, TRUE, dwProcessID);
 	if (NULL != tmpHandle) // TODO 2 - Maybe we can just retuirn TerminateProcess(...) without checking for null?
 		return TerminateProcess(tmpHandle, 0);
@@ -139,34 +139,34 @@ void MainBypass::WaitForProcess(const wchar_t* pText) {
 
 bool MainBypass::SuspendX3Threads(DWORD ownerProcessID) {
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
-	if (hSnapshot == INVALID_HANDLE_VALUE) return FALSE;
+	if (hSnapshot != INVALID_HANDLE_VALUE) {
 
-	THREADENTRY32 tEntry;
-	tEntry.dwSize = sizeof(tEntry);
-	if (Thread32First(hSnapshot, &tEntry)) {
-		int i = 0; // TODO 1 - Try to find a better way for this..  Maybe get end of array and do the first... 1-4?
-		do {
-			if (tEntry.dwSize >= FIELD_OFFSET(THREADENTRY32, th32OwnerProcessID) + sizeof(tEntry.th32OwnerProcessID)) {
-				HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, true, tEntry.th32ThreadID);
-				if (hThread) {
-					PWSTR data;
-					GetThreadDescription(hThread, &data);
-					if (tEntry.th32OwnerProcessID == ownerProcessID) {
-						i++;
-						if (i >= 44) {
-							if (!SuspendThread(hThread)) {
-								std::cout << "Returned false in SuspendThread(hThread)..." << std::endl;
-								return false;
-							}
+		THREADENTRY32 tEntry;
+		tEntry.dwSize = sizeof(tEntry);
+		if (Thread32First(hSnapshot, &tEntry)) {
+			int i = 0; // TODO 1 - Try to find a better way for this..  Maybe get end of array and do the first... 1-4?
+			do {
+				if (tEntry.dwSize >= FIELD_OFFSET(THREADENTRY32, th32OwnerProcessID) + sizeof(tEntry.th32OwnerProcessID)) {
+					HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, true, tEntry.th32ThreadID);
+					if (hThread) {
+						PWSTR data;
+						GetThreadDescription(hThread, &data);
+						if (tEntry.th32OwnerProcessID == ownerProcessID) {
+							i++;
+							//if (i >= 44) {
+							if (i == 44 || i == 46)
+								SuspendThread(hThread);
 						}
 					}
 				}
-			}
-			tEntry.dwSize = sizeof(tEntry);
-		} while (Thread32Next(hSnapshot, &tEntry));
+				tEntry.dwSize = sizeof(tEntry);
+			} while (Thread32Next(hSnapshot, &tEntry));
+		}
+		CloseHandle(hSnapshot);
+		return true;
 	}
 	CloseHandle(hSnapshot);
-	return true;
+	return false;
 }
 
 DWORD MainBypass::GetParentProcessID(DWORD dwProcessID) {
@@ -192,57 +192,6 @@ DWORD MainBypass::GetParentProcessID(DWORD dwProcessID) {
 	return dwParentProcessID;
 }
 
-/*void MainBypass::BypassLoop() {
-	EnableDebugPriv();
-
-	while (true) {
-		DWORD xCoronaHostProcessID, NCLauncherID, aionProcessID;
-
-		WaitForProcess(L"Aion.bin");
-		aionProcessID = GetProcID(L"Aion.bin");
-
-		NCLauncherID = GetProcID(L"NCLauncherR.exe");
-		if (NCLauncherID != 0)
-			KillProcessID(NCLauncherID);
-
-		WaitForProcess(L"xcoronahost.xem");
-		xCoronaHostProcessID = GetProcID(L"xcoronahost.xem");
-
-		Sleep(2000);
-
-		SuspendProcess(xCoronaHostProcessID, TRUE);
-
-		// Now is the time to acquire xcorona_64.xem module base address
-		HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, true, aionProcessID);
-
-		std::cout << "aionProcessID = " << aionProcessID << std::endl;
-
-		MODULEENTRY32 xCoronaModule;
-
-		xCoronaModule = GetModule(aionProcessID, L"xcorona_64.xem");
-
-		if (xCoronaModule.hModule > 0) {
-			std::wcout << "xcorona_64.xem base addr hex is " << std::hex << xCoronaModule.modBaseAddr << std::endl;
-		} else {
-			std::cout << "No module found...?" << std::endl;
-			return 0;
-		}
-
-		SuspendX3Threads(aionProcessID);
-
-		SuspendProcess(xCoronaHostProcessID, FALSE);
-
-		DWORD xddID;
-		WaitForProcess(L"xxd-0.xem");
-		Sleep(2500);
-		xddID = GetProcID(L"xxd-0.xem");
-
-		if (xddID != 0)
-			KillProcessID(xddID);
-		KillProcessID(xCoronaHostProcessID);
-
-		return 1;
-		std::cout << "Looping.." << std::endl;
-	}
-	return 0;
-}*/
+void test() {
+	HWND mW = FindWindowEx(NULL, NULL, L"", NULL);
+}
