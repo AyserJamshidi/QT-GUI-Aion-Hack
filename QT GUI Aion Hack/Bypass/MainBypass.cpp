@@ -81,22 +81,6 @@ MODULEENTRY32 MainBypass::GetModule(DWORD dwProcID, const wchar_t* moduleName) {
 	return modEntry;
 }
 
-/*uintptr_t FindDmaAddy(int PointerLevel, HANDLE hProcHandle, uintptr_t Offsets[], uintptr_t BaseAddress) {
-	uintptr_t pointer = BaseAddress;
-	uintptr_t pTemp;
-
-	uintptr_t pointerAddr;
-	for (int i = 0; i < PointerLevel; i++) {
-		if (i == 0) {
-			ReadProcessMemory(hProcHandle, (LPCVOID)pointer, &pTemp, sizeof(pTemp), NULL);
-		}
-		pointerAddr = pTemp + Offsets[i];
-
-		ReadProcessMemory(hProcHandle, (LPCVOID)pointerAddr, &pTemp, sizeof(pTemp), NULL);
-	}
-	return pointerAddr;
-}*/
-
 BOOL MainBypass::SuspendProcess(DWORD ProcessId, bool Suspend) {
 	HANDLE hSnapshot = NULL;
 	//BOOL rvBool = FALSE;
@@ -140,7 +124,6 @@ void MainBypass::WaitForProcess(const wchar_t* pText) {
 bool MainBypass::SuspendX3Threads(DWORD ownerProcessID) {
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
 	if (hSnapshot != INVALID_HANDLE_VALUE) {
-
 		THREADENTRY32 tEntry;
 		tEntry.dwSize = sizeof(tEntry);
 		if (Thread32First(hSnapshot, &tEntry)) {

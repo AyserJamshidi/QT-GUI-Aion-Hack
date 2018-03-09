@@ -81,6 +81,9 @@
     <ClCompile Include="FindMainWindowHWND.cpp">
       <Filter>Source Files\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="Tools\CommandLine.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="QtGuiApplication1.ui">
@@ -109,13 +112,11 @@
     <ClInclude Include="FindMainWindowHWND.h">
       <Filter>Header Files\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Tools\CommandLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="QtGuiApplication1.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Resources\loading.gif">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

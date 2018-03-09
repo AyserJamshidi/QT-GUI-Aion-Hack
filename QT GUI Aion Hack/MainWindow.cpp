@@ -1,16 +1,16 @@
 #include "MainWindow.h"
 #include "Bypass\MainBypass.h"
 #include "FindMainWindowHWND.h"
+#include "Tools\CommandLine.h"
 
 #include <qdebug.h>
 #include <qsignalmapper.h>
 #include <qmovie.h>
-#include <qmessagebox.h>
 #include <qthread.h>
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include <qmetaobject.h>
+#include <qfile.h>
 
 #define HOME_INDEX 0
 #define HACK_INDEX 1
@@ -22,7 +22,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 	ui->setupUi(this);
 
 	// Custom flags we can't set inside QT Designer
-	setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint); // Disable window resizing
+	//setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint); // Disable window resizing
+	//QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
 	// Connect UI elements to actual functions
 	QSignalMapper* signalMapper = new QSignalMapper(this);
@@ -37,12 +38,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 	connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(StackedWidgetController(int)));
 
 	/* Create Loading Gif */
-	movie = new QMovie("Resources/loading.gif");
-
-	//connect(ui->exit_MenuAction, SIGNAL(triggered()), this, SLOT(CloseProgram()));
-	//connect(ui->northAmerica_MenuAction, SIGNAL(triggered()), this, SLOT(StackedWidgetController()));
-	//connect(ui->northAmerica_MenuAction, SIGNAL(triggered()), this, SLOT(ui->MainWindowStackedWidget->setCurrentIndex(1)));
-	//connect(ui->europe_MenuAction, SIGNAL(triggered()), this, SLOT(StackedWidgetController(2)));
+	movie = new QMovie(":/images/Resources/loading.gif");
+	ui->aion_LoadingGif->setGeometry(QRect(0, 0, 636, 400));
 }
 
 MainWindow::~MainWindow() {
@@ -68,24 +65,53 @@ void MainWindow::StackedWidgetController(int CC) {
 	}
 }
 
+void MainWindow::LoadHack(bool turnOn) {
+	if (turnOn) {
+		if (!movie->isValid())
+			QCoreApplication::quit();
+
+		ui->aion_LoadingGif->setMovie(movie);
+		movie->start();
+
+		std::thread mThread(&MainWindow::HackLoop, this);
+		mThread.detach();
+	} else {
+		if (movie->isValid())
+			movie->stop();
+	}
+}
+
 void MainWindow::SetStatusText(QString stringToSend) {
 	QMetaObject::invokeMethod(ui->statusLabel, "setText", Qt::QueuedConnection, Q_ARG(QString, stringToSend));
 }
 
+/*
+ * ----------------------------------------------------------------------------------------------------------
+ * --                                             Threads                                                  --
+ * ----------------------------------------------------------------------------------------------------------
+ */
+
 void MainWindow::HackLoop() {
 	MainBypass mBypass;
+	CommandLine cmdLine;
+	int failSafe = 0;
 
 	while (globalCurrentIndex == HACK_INDEX) {
 		DWORD xCoronaHostProcessID, NCLauncherID, aionProcessID;
+		SetStatusText("Ready for Aion");
+		//HANDLE aHandle = OpenProcess(NULL, FALSE, mBypass.GetProcID(L"Aion.bin"));
+
+		cmdLine.GetCommandLines();
 
 		xCoronaHostProcessID = mBypass.GetProcID(L"xcoronahost.xem");
 		if (xCoronaHostProcessID != 0) {
+			SetStatusText("Bypassing"); 
 			NCLauncherID = mBypass.GetProcID(L"NCLauncherR.exe");
 
 			if (NCLauncherID != 0)
 				mBypass.KillProcessID(NCLauncherID);
 
-			std::this_thread::sleep_for(std::chrono::seconds(1)); // If we have issues put this back to 2
+			std::this_thread::sleep_for(std::chrono::seconds(2)); // If we have issues put this back to 2
 			if (mBypass.SuspendProcess(xCoronaHostProcessID, true)) {
 
 				aionProcessID = mBypass.GetParentProcessID(xCoronaHostProcessID);
@@ -99,15 +125,13 @@ void MainWindow::HackLoop() {
 						qDebug() << "xcorona_64.xem base addr hex is " << std::hex << xCoronaModule.modBaseAddr;
 
 						if (mBypass.SuspendX3Threads(aionProcessID) && mBypass.SuspendProcess(xCoronaHostProcessID, false)) {
-							//qDebug() << "1 = " << mBypass.SuspendX3Threads(aionProcessID);
-
-							//qDebug() << "2 = " << mBypass.SuspendProcess(xCoronaHostProcessID, false);
 							DWORD xddID;
 							mBypass.WaitForProcess(L"xxd-0.xem");
 							xddID = mBypass.GetProcID(L"xxd-0.xem");
 
-							while (FindWindowEx(NULL, NULL, TEXT("SplashWindowClass"), NULL) != 0) {
+							while (FindWindowEx(NULL, NULL, TEXT("SplashWindowClass"), NULL) != 0 && failSafe <= 200) {
 								std::this_thread::sleep_for(std::chrono::milliseconds(100));
+								failSafe++;
 							}
 							mBypass.KillProcessID(xddID);
 							mBypass.KillProcessID(xCoronaHostProcessID);
@@ -118,7 +142,7 @@ void MainWindow::HackLoop() {
 						// xCoronaModule base address could not be found
 					}
 				} else {
-					qDebug() << "No module found...?";
+					// xCoronaModule handle not found
 				}
 			} else {
 				// Couldn't suspend xCoronaHostProcessID
@@ -126,23 +150,6 @@ void MainWindow::HackLoop() {
 		} else {
 			// No xcoronahost.xem exists
 		}
-		Sleep(100);
-	}
-}
-
-void MainWindow::LoadHack(bool turnOn) {
-	if (turnOn) {
-		if (!movie->isValid())
-			QCoreApplication::quit();
-
-		ui->aion_LoadingGif->setMovie(movie);
-		ui->aion_LoadingGif->setGeometry(QRect(0, 0, 636, 400));
-		movie->start();
-
-		std::thread mThread(&MainWindow::HackLoop, this);
-		mThread.detach();
-	} else {
-		if (movie->isValid())
-			movie->stop();
+		//std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 }

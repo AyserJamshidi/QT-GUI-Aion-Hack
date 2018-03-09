@@ -43,8 +43,16 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
+        MainWindow->setWindowModality(Qt::ApplicationModal);
         MainWindow->setEnabled(true);
-        MainWindow->resize(636, 422);
+        MainWindow->resize(634, 413);
+        QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMinimumSize(QSize(634, 413));
+        MainWindow->setMaximumSize(QSize(634, 413));
         MainWindow->setAutoFillBackground(false);
         MainWindow->setStyleSheet(QLatin1String("QMenuBar, QMenu {\n"
 "	color: rgb(176, 30, 58);\n"
@@ -88,7 +96,7 @@ public:
         aion_LoadingGif->setGeometry(QRect(0, 0, 61, 21));
         statusLabel = new QLabel(aion_StackedWidget);
         statusLabel->setObjectName(QStringLiteral("statusLabel"));
-        statusLabel->setGeometry(QRect(3, 340, 630, 31));
+        statusLabel->setGeometry(QRect(3, 353, 624, 31));
         QFont font;
         font.setPointSize(12);
         statusLabel->setFont(font);
@@ -100,7 +108,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 636, 26));
+        menuBar->setGeometry(QRect(0, 0, 634, 21));
         menuNew = new QMenu(menuBar);
         menuNew->setObjectName(QStringLiteral("menuNew"));
         MainWindow->setMenuBar(menuBar);

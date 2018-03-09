@@ -3,6 +3,9 @@
  <author>Lmfaoown</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -10,9 +13,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>636</width>
-    <height>422</height>
+    <width>634</width>
+    <height>413</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>634</width>
+    <height>413</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>634</width>
+    <height>413</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Lmfaoown's Aion Hack</string>
@@ -93,8 +114,8 @@ QMenu::item:selected {
       <property name="geometry">
        <rect>
         <x>3</x>
-        <y>340</y>
-        <width>630</width>
+        <y>353</y>
+        <width>624</width>
         <height>31</height>
        </rect>
       </property>
@@ -123,8 +144,8 @@ QMenu::item:selected {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>636</width>
-     <height>26</height>
+     <width>634</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuNew">

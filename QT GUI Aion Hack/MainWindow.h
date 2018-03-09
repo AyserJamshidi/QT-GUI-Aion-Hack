@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-//#include <qthread.h>
 
 #include "ui_QtGuiApplication1.h"
 
