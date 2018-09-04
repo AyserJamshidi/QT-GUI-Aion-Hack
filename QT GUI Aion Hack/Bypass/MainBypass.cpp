@@ -72,7 +72,8 @@ MODULEENTRY32 MainBypass::GetModule(DWORD dwProcID, const wchar_t* moduleName) {
 			if (_tcscmp(modEntry.szModule, moduleName) == 1)
 				break;
 		} while (Module32Next(hSnapshot, &modEntry));
-	} else {
+	}
+	else {
 		std::cout << "Module32First came back false." << std::endl;
 	}
 
@@ -83,7 +84,7 @@ MODULEENTRY32 MainBypass::GetModule(DWORD dwProcID, const wchar_t* moduleName) {
 
 BOOL MainBypass::SuspendProcess(DWORD ProcessId, bool Suspend) {
 	HANDLE hSnapshot = NULL;
-	//BOOL rvBool = FALSE;
+	BOOL rvBool = FALSE;
 	THREADENTRY32 tEntry = { 0 };
 
 	hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
@@ -99,13 +100,13 @@ BOOL MainBypass::SuspendProcess(DWORD ProcessId, bool Suspend) {
 				CloseHandle(hThread);
 			}
 		} while (Thread32Next(hSnapshot, &tEntry));
-		CloseHandle(hSnapshot);
-		return true;
-		//rvBool = TRUE;
-	} else
-		//rvBool = FALSE;
-		CloseHandle(hSnapshot);
-	return false; //(rvBool);
+		//CloseHandle(hSnapshot);
+		rvBool = TRUE;
+	}
+	else
+		rvBool = FALSE;
+	CloseHandle(hSnapshot);
+	return (rvBool);
 }
 
 BOOL MainBypass::KillProcessID(DWORD dwProcessID) {
@@ -132,13 +133,15 @@ bool MainBypass::SuspendX3Threads(DWORD ownerProcessID) {
 				if (tEntry.dwSize >= FIELD_OFFSET(THREADENTRY32, th32OwnerProcessID) + sizeof(tEntry.th32OwnerProcessID)) {
 					HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, true, tEntry.th32ThreadID);
 					if (hThread) {
-						PWSTR data;
-						GetThreadDescription(hThread, &data);
+						//PWSTR data;
+						//GetThreadDescription(hThread, &data);
 						if (tEntry.th32OwnerProcessID == ownerProcessID) {
 							i++;
-							//if (i >= 44) {
-							if (i == 44 || i == 46)
+							if (i >= 44)// {
+								//if (i == 44 || i == 46)
 								SuspendThread(hThread);
+								//break;
+							//}
 						}
 					}
 				}
@@ -173,8 +176,4 @@ DWORD MainBypass::GetParentProcessID(DWORD dwProcessID) {
 	}
 
 	return dwParentProcessID;
-}
-
-void test() {
-	HWND mW = FindWindowEx(NULL, NULL, L"", NULL);
 }

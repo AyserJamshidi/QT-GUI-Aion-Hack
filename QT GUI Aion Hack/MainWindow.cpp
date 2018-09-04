@@ -30,14 +30,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 	connect(ui->exit_MenuAction, SIGNAL(triggered()), this, SLOT(CloseProgram()));
 
-	/* Menu Items */
+	// Menu Items
 	connect(ui->home_MenuAction, SIGNAL(triggered()), signalMapper, SLOT(map()));
 	connect(ui->hack_MenuAction, SIGNAL(triggered()), signalMapper, SLOT(map()));
+	connect(ui->attach_MenuAction, SIGNAL(triggered()), signalMapper, SLOT(map()));
 	signalMapper->setMapping(ui->home_MenuAction, 0);
 	signalMapper->setMapping(ui->hack_MenuAction, 1);
+	signalMapper->setMapping(ui->attach_MenuAction, 2);
 	connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(StackedWidgetController(int)));
 
-	/* Create Loading Gif */
+	// Create Loading Gif
 	movie = new QMovie(":/images/Resources/loading.gif");
 	ui->aion_LoadingGif->setGeometry(QRect(0, 0, 636, 400));
 }
@@ -55,12 +57,14 @@ void MainWindow::StackedWidgetController(int CC) {
 		globalCurrentIndex = CC;
 		ui->MainWindowStackedWidget->setCurrentIndex(CC);
 		switch (CC) {
-			case 0: // mainPage_StackedWidget
-				LoadHack(FALSE);
-				break;
-			case 1: // aion_StackedWidget
-				LoadHack(TRUE);
-				break;
+		case 0: // mainPage_StackedWidget
+			//LoadHack(FALSE);
+			break;
+		case 1: // aion_StackedWidget
+			//LoadHack(TRUE);
+			break;
+		case 2: // attach_StackedWidget
+			break;
 		}
 	}
 }
@@ -75,14 +79,16 @@ void MainWindow::LoadHack(bool turnOn) {
 
 		std::thread mThread(&MainWindow::HackLoop, this);
 		mThread.detach();
-	} else {
+	}
+	else {
 		if (movie->isValid())
 			movie->stop();
 	}
 }
 
 void MainWindow::SetStatusText(QString stringToSend) {
-	QMetaObject::invokeMethod(ui->statusLabel, "setText", Qt::QueuedConnection, Q_ARG(QString, stringToSend));
+	if (ui != NULL)
+		QMetaObject::invokeMethod(ui->statusLabel, "setText", Qt::QueuedConnection, Q_ARG(QString, stringToSend));
 }
 
 /*
@@ -94,18 +100,17 @@ void MainWindow::SetStatusText(QString stringToSend) {
 void MainWindow::HackLoop() {
 	MainBypass mBypass;
 	CommandLine cmdLine;
-	int failSafe = 0;
+	DWORD xCoronaHostProcessID, NCLauncherID, aionProcessID, xddID;
 
 	while (globalCurrentIndex == HACK_INDEX) {
-		DWORD xCoronaHostProcessID, NCLauncherID, aionProcessID;
 		SetStatusText("Ready for Aion");
 		//HANDLE aHandle = OpenProcess(NULL, FALSE, mBypass.GetProcID(L"Aion.bin"));
 
-		cmdLine.GetCommandLines();
+		//cmdLine.GetCommandLines();
 
 		xCoronaHostProcessID = mBypass.GetProcID(L"xcoronahost.xem");
 		if (xCoronaHostProcessID != 0) {
-			SetStatusText("Bypassing"); 
+			SetStatusText("Bypassing");
 			NCLauncherID = mBypass.GetProcID(L"NCLauncherR.exe");
 
 			if (NCLauncherID != 0)
@@ -125,31 +130,47 @@ void MainWindow::HackLoop() {
 						qDebug() << "xcorona_64.xem base addr hex is " << std::hex << xCoronaModule.modBaseAddr;
 
 						if (mBypass.SuspendX3Threads(aionProcessID) && mBypass.SuspendProcess(xCoronaHostProcessID, false)) {
-							DWORD xddID;
-							mBypass.WaitForProcess(L"xxd-0.xem");
-							xddID = mBypass.GetProcID(L"xxd-0.xem");
+							int failSafe = 0;
+							//DWORD xddID;
 
+							mBypass.WaitForProcess(L"xxd-0.xem");
+							qDebug() << "Found xxd";
 							while (FindWindowEx(NULL, NULL, TEXT("SplashWindowClass"), NULL) != 0 && failSafe <= 200) {
 								std::this_thread::sleep_for(std::chrono::milliseconds(100));
 								failSafe++;
 							}
-							mBypass.KillProcessID(xddID);
+							qDebug() << "Killing xdd";
+							std::this_thread::sleep_for(std::chrono::seconds(2));
+							mBypass.KillProcessID(mBypass.GetProcID(L"xxd-0.xem"));
 							mBypass.KillProcessID(xCoronaHostProcessID);
-						} else {
+							qDebug() << "Killed";
+						}
+						else {
 							// Couldn't suspend XIGNCODE3, admin rights issues?
 						}
-					} else {
+					}
+					else {
 						// xCoronaModule base address could not be found
 					}
-				} else {
+				}
+				else {
 					// xCoronaModule handle not found
 				}
-			} else {
+			}
+			else {
 				// Couldn't suspend xCoronaHostProcessID
 			}
-		} else {
+		}
+		else {
 			// No xcoronahost.xem exists
 		}
-		//std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+		//mBypass = nullptr;
+		//cmdLine = NULL;
+		xCoronaHostProcessID = NULL;
+		NCLauncherID = NULL;
+		aionProcessID = NULL;
+		xddID = NULL;
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 }

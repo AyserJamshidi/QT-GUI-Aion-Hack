@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'QtGuiApplication1.ui'
 **
-** Created by: Qt User Interface Compiler version 5.10.0
+** Created by: Qt User Interface Compiler version 5.11.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -12,13 +12,13 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStackedWidget>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -29,6 +29,7 @@ public:
     QAction *exit_MenuAction;
     QAction *home_MenuAction;
     QAction *hack_MenuAction;
+    QAction *attach_MenuAction;
     QWidget *centralWidget;
     QStackedWidget *MainWindowStackedWidget;
     QWidget *mainPage_StackedWidget;
@@ -36,6 +37,8 @@ public:
     QWidget *aion_StackedWidget;
     QLabel *aion_LoadingGif;
     QLabel *statusLabel;
+    QWidget *attach_StackedWidget;
+    QTableWidget *attach_tableWidget;
     QMenuBar *menuBar;
     QMenu *menuNew;
 
@@ -74,6 +77,8 @@ public:
         home_MenuAction->setObjectName(QStringLiteral("home_MenuAction"));
         hack_MenuAction = new QAction(MainWindow);
         hack_MenuAction->setObjectName(QStringLiteral("hack_MenuAction"));
+        attach_MenuAction = new QAction(MainWindow);
+        attach_MenuAction->setObjectName(QStringLiteral("attach_MenuAction"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         MainWindowStackedWidget = new QStackedWidget(centralWidget);
@@ -105,10 +110,18 @@ public:
 "}"));
         statusLabel->setAlignment(Qt::AlignCenter);
         MainWindowStackedWidget->addWidget(aion_StackedWidget);
+        attach_StackedWidget = new QWidget();
+        attach_StackedWidget->setObjectName(QStringLiteral("attach_StackedWidget"));
+        attach_tableWidget = new QTableWidget(attach_StackedWidget);
+        attach_tableWidget->setObjectName(QStringLiteral("attach_tableWidget"));
+        attach_tableWidget->setGeometry(QRect(170, 30, 256, 261));
+        attach_tableWidget->setFrameShape(QFrame::StyledPanel);
+        attach_tableWidget->setFrameShadow(QFrame::Sunken);
+        MainWindowStackedWidget->addWidget(attach_StackedWidget);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 634, 21));
+        menuBar->setGeometry(QRect(0, 0, 634, 22));
         menuNew = new QMenu(menuBar);
         menuNew->setObjectName(QStringLiteral("menuNew"));
         MainWindow->setMenuBar(menuBar);
@@ -116,12 +129,13 @@ public:
         menuBar->addAction(menuNew->menuAction());
         menuNew->addAction(home_MenuAction);
         menuNew->addAction(hack_MenuAction);
+        menuNew->addAction(attach_MenuAction);
         menuNew->addSeparator();
         menuNew->addAction(exit_MenuAction);
 
         retranslateUi(MainWindow);
 
-        MainWindowStackedWidget->setCurrentIndex(0);
+        MainWindowStackedWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -133,6 +147,7 @@ public:
         exit_MenuAction->setText(QApplication::translate("MainWindow", "Exit", nullptr));
         home_MenuAction->setText(QApplication::translate("MainWindow", "Home", nullptr));
         hack_MenuAction->setText(QApplication::translate("MainWindow", "Hack", nullptr));
+        attach_MenuAction->setText(QApplication::translate("MainWindow", "Attach", nullptr));
         mainPage_LoadingGif->setText(QString());
         aion_LoadingGif->setText(QString());
         statusLabel->setText(QApplication::translate("MainWindow", "Receiving data from server...", nullptr));

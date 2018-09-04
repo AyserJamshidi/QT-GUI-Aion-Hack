@@ -79,7 +79,7 @@ QMenu::item:selected {
      <number>0</number>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="mainPage_StackedWidget">
      <widget class="QLabel" name="mainPage_LoadingGif">
@@ -137,6 +137,24 @@ QMenu::item:selected {
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="attach_StackedWidget">
+     <widget class="QTableWidget" name="attach_tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>30</y>
+        <width>256</width>
+        <height>261</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -145,7 +163,7 @@ QMenu::item:selected {
      <x>0</x>
      <y>0</y>
      <width>634</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuNew">
@@ -154,6 +172,7 @@ QMenu::item:selected {
     </property>
     <addaction name="home_MenuAction"/>
     <addaction name="hack_MenuAction"/>
+    <addaction name="attach_MenuAction"/>
     <addaction name="separator"/>
     <addaction name="exit_MenuAction"/>
    </widget>
@@ -175,6 +194,11 @@ QMenu::item:selected {
   <action name="hack_MenuAction">
    <property name="text">
     <string>Hack</string>
+   </property>
+  </action>
+  <action name="attach_MenuAction">
+   <property name="text">
+    <string>Attach</string>
    </property>
   </action>
  </widget>
