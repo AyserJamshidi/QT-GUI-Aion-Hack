@@ -17,6 +17,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
@@ -38,7 +39,10 @@ public:
     QLabel *aion_LoadingGif;
     QLabel *statusLabel;
     QWidget *attach_StackedWidget;
-    QTableWidget *attach_tableWidget;
+    QTableWidget *attach_TableWidget;
+    QLabel *label;
+    QLabel *label_2;
+    QPushButton *hack_pushButton;
     QMenuBar *menuBar;
     QMenu *menuNew;
 
@@ -112,11 +116,48 @@ public:
         MainWindowStackedWidget->addWidget(aion_StackedWidget);
         attach_StackedWidget = new QWidget();
         attach_StackedWidget->setObjectName(QStringLiteral("attach_StackedWidget"));
-        attach_tableWidget = new QTableWidget(attach_StackedWidget);
-        attach_tableWidget->setObjectName(QStringLiteral("attach_tableWidget"));
-        attach_tableWidget->setGeometry(QRect(170, 30, 256, 261));
-        attach_tableWidget->setFrameShape(QFrame::StyledPanel);
-        attach_tableWidget->setFrameShadow(QFrame::Sunken);
+        attach_TableWidget = new QTableWidget(attach_StackedWidget);
+        if (attach_TableWidget->columnCount() < 2)
+            attach_TableWidget->setColumnCount(2);
+        if (attach_TableWidget->rowCount() < 10)
+            attach_TableWidget->setRowCount(10);
+        attach_TableWidget->setObjectName(QStringLiteral("attach_TableWidget"));
+        attach_TableWidget->setGeometry(QRect(10, 30, 254, 302));
+        attach_TableWidget->setContextMenuPolicy(Qt::DefaultContextMenu);
+        attach_TableWidget->setAcceptDrops(false);
+        attach_TableWidget->setAutoFillBackground(false);
+        attach_TableWidget->setFrameShape(QFrame::StyledPanel);
+        attach_TableWidget->setFrameShadow(QFrame::Sunken);
+        attach_TableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        attach_TableWidget->setTabKeyNavigation(false);
+        attach_TableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+        attach_TableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+        attach_TableWidget->setTextElideMode(Qt::ElideRight);
+        attach_TableWidget->setShowGrid(true);
+        attach_TableWidget->setGridStyle(Qt::SolidLine);
+        attach_TableWidget->setSortingEnabled(false);
+        attach_TableWidget->setWordWrap(false);
+        attach_TableWidget->setCornerButtonEnabled(true);
+        attach_TableWidget->setRowCount(10);
+        attach_TableWidget->setColumnCount(2);
+        attach_TableWidget->horizontalHeader()->setVisible(false);
+        attach_TableWidget->horizontalHeader()->setCascadingSectionResizes(false);
+        attach_TableWidget->horizontalHeader()->setDefaultSectionSize(126);
+        attach_TableWidget->horizontalHeader()->setMinimumSectionSize(32);
+        attach_TableWidget->verticalHeader()->setVisible(false);
+        label = new QLabel(attach_StackedWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(10, 10, 121, 20));
+        label->setScaledContents(true);
+        label->setAlignment(Qt::AlignCenter);
+        label_2 = new QLabel(attach_StackedWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(140, 10, 121, 20));
+        label_2->setScaledContents(true);
+        label_2->setAlignment(Qt::AlignCenter);
+        hack_pushButton = new QPushButton(attach_StackedWidget);
+        hack_pushButton->setObjectName(QStringLiteral("hack_pushButton"));
+        hack_pushButton->setGeometry(QRect(270, 170, 75, 23));
         MainWindowStackedWidget->addWidget(attach_StackedWidget);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -151,6 +192,12 @@ public:
         mainPage_LoadingGif->setText(QString());
         aion_LoadingGif->setText(QString());
         statusLabel->setText(QApplication::translate("MainWindow", "Receiving data from server...", nullptr));
+#ifndef QT_NO_TOOLTIP
+        attach_TableWidget->setToolTip(QString());
+#endif // QT_NO_TOOLTIP
+        label->setText(QApplication::translate("MainWindow", "Name", nullptr));
+        label_2->setText(QApplication::translate("MainWindow", "Process ID", nullptr));
+        hack_pushButton->setText(QApplication::translate("MainWindow", "Hack", nullptr));
         menuNew->setTitle(QApplication::translate("MainWindow", "Menu", nullptr));
     } // retranslateUi
 

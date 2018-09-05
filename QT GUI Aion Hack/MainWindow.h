@@ -11,6 +11,7 @@ public:
 	MainWindow(QWidget* parent = Q_NULLPTR);
 	~MainWindow();
 	void MainWindow::HackLoop();
+	void MainWindow::InjectLoop();
 	void SetStatusText(QString stringToSend);
 
 private:
@@ -20,4 +21,5 @@ private:
 	private slots:
 	void CloseProgram();
 	void StackedWidgetController(int CC);
+	void on_hack_pushButton_clicked();
 };

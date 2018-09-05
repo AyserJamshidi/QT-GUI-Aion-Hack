@@ -14,6 +14,7 @@
 
 #define HOME_INDEX 0
 #define HACK_INDEX 1
+#define INJECT_INDEX 2
 
 QMovie* movie;
 int globalCurrentIndex;
@@ -52,8 +53,12 @@ void MainWindow::CloseProgram() {
 	QCoreApplication::quit();
 }
 
+void MainWindow::on_hack_pushButton_clicked() {
+	qDebug() << "Hi!!!";
+}
+
 void MainWindow::StackedWidgetController(int CC) {
-	if (ui->MainWindowStackedWidget->currentIndex() != CC) {
+	//if (ui->MainWindowStackedWidget->currentIndex() != CC) {
 		globalCurrentIndex = CC;
 		ui->MainWindowStackedWidget->setCurrentIndex(CC);
 		switch (CC) {
@@ -64,9 +69,15 @@ void MainWindow::StackedWidgetController(int CC) {
 			//LoadHack(TRUE);
 			break;
 		case 2: // attach_StackedWidget
+			ui->attach_TableWidget->setItem(0, 0, new QTableWidgetItem("Name"));
+			ui->attach_TableWidget->setItem(0, 1, new QTableWidgetItem("Process ID"));
+			ui->attach_TableWidget->item(0, 0)->setTextAlignment(Qt::AlignCenter);
+			ui->attach_TableWidget->item(0, 1)->setTextAlignment(Qt::AlignCenter);
+			std::thread mThread(&MainWindow::InjectLoop, this);
+			mThread.detach();
 			break;
 		}
-	}
+	//}
 }
 
 void MainWindow::LoadHack(bool turnOn) {
@@ -79,8 +90,7 @@ void MainWindow::LoadHack(bool turnOn) {
 
 		std::thread mThread(&MainWindow::HackLoop, this);
 		mThread.detach();
-	}
-	else {
+	} else {
 		if (movie->isValid())
 			movie->stop();
 	}
@@ -96,6 +106,15 @@ void MainWindow::SetStatusText(QString stringToSend) {
  * --                                             Threads                                                  --
  * ----------------------------------------------------------------------------------------------------------
  */
+
+void MainWindow::InjectLoop() {
+	CommandLine cmdLine;
+
+	while (globalCurrentIndex == INJECT_INDEX) {
+		cmdLine.GetCommandLines();
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	}
+}
 
 void MainWindow::HackLoop() {
 	MainBypass mBypass;
@@ -144,24 +163,19 @@ void MainWindow::HackLoop() {
 							mBypass.KillProcessID(mBypass.GetProcID(L"xxd-0.xem"));
 							mBypass.KillProcessID(xCoronaHostProcessID);
 							qDebug() << "Killed";
-						}
-						else {
+						} else {
 							// Couldn't suspend XIGNCODE3, admin rights issues?
 						}
-					}
-					else {
+					} else {
 						// xCoronaModule base address could not be found
 					}
-				}
-				else {
+				} else {
 					// xCoronaModule handle not found
 				}
-			}
-			else {
+			} else {
 				// Couldn't suspend xCoronaHostProcessID
 			}
-		}
-		else {
+		} else {
 			// No xcoronahost.xem exists
 		}
 

@@ -138,20 +138,146 @@ QMenu::item:selected {
      </widget>
     </widget>
     <widget class="QWidget" name="attach_StackedWidget">
-     <widget class="QTableWidget" name="attach_tableWidget">
+     <widget class="QTableWidget" name="attach_TableWidget">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>10</x>
         <y>30</y>
-        <width>256</width>
-        <height>261</height>
+        <width>254</width>
+        <height>302</height>
        </rect>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="textElideMode">
+       <enum>Qt::ElideRight</enum>
+      </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="gridStyle">
+       <enum>Qt::SolidLine</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>false</bool>
+      </property>
+      <property name="cornerButtonEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="rowCount">
+       <number>10</number>
+      </property>
+      <property name="columnCount">
+       <number>2</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>126</number>
+      </attribute>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>32</number>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column/>
+      <column/>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Name</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>10</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Process ID</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="hack_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>170</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Hack</string>
       </property>
      </widget>
     </widget>
