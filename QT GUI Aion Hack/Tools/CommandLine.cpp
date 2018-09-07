@@ -82,6 +82,7 @@ VOID CommandLine::GetCommandLines() {
 	if (EnumWbem != NULL) {
 		IWbemClassObject *result = NULL;
 		ULONG returnedCount = 0;
+		int currentCount = 0;
 
 		while (hr = EnumWbem->Next(WBEM_INFINITE, 1, &result, &returnedCount) == S_OK) {
 			VARIANT ProcessId;
@@ -94,8 +95,10 @@ VOID CommandLine::GetCommandLines() {
 				//wprintf(L"%u  %s \r\n", ProcessId.uintVal, CommandLine.bstrVal);
 				//assert(CommandLine.bstrVal != nullptr);
 				std::wstring ws(CommandLine.bstrVal, SysStringLen(CommandLine.bstrVal));
+
 				qDebug() << "id = " << ProcessId.uintVal << " and cmd = " << ws;
 				SysReleaseString((BSTR)CommandLine.bstrVal); // Leave this here to prevent memory leak.  Need to release CommandLine as BSTR.
+				currentCount++;
 			}
 
 			result->Release();

@@ -113,7 +113,7 @@
       <Filter>Header Files\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Tools\CommandLine.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

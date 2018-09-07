@@ -13,7 +13,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>634</width>
+    <width>631</width>
     <height>413</height>
    </rect>
   </property>
@@ -25,13 +25,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>634</width>
+    <width>631</width>
     <height>413</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>634</width>
+    <width>631</width>
     <height>413</height>
    </size>
   </property>
@@ -95,6 +95,21 @@ QMenu::item:selected {
        <string/>
       </property>
      </widget>
+     <widget class="QWebEngineView" name="webEngineView">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>631</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <property name="url">
+       <url>
+        <string>https://www.lmfaoown.com/aion_hack/launcher/</string>
+       </url>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="aion_StackedWidget">
      <widget class="QLabel" name="aion_LoadingGif">
@@ -139,12 +154,15 @@ QMenu::item:selected {
     </widget>
     <widget class="QWidget" name="attach_StackedWidget">
      <widget class="QTableWidget" name="attach_TableWidget">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>30</y>
+        <y>10</y>
         <width>254</width>
-        <height>302</height>
+        <height>326</height>
        </rect>
       </property>
       <property name="contextMenuPolicy">
@@ -164,6 +182,9 @@ QMenu::item:selected {
       </property>
       <property name="frameShadow">
        <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
@@ -193,7 +214,7 @@ QMenu::item:selected {
        <bool>false</bool>
       </property>
       <property name="cornerButtonEnabled">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="rowCount">
        <number>10</number>
@@ -202,7 +223,7 @@ QMenu::item:selected {
        <number>2</number>
       </property>
       <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
+       <bool>true</bool>
       </attribute>
       <attribute name="horizontalHeaderCascadingSectionResizes">
        <bool>false</bool>
@@ -228,56 +249,165 @@ QMenu::item:selected {
       <row/>
       <column/>
       <column/>
+      <item row="0" column="0">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="4" column="0">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="4" column="1">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="5" column="0">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="5" column="1">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="6" column="0">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="6" column="1">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="7" column="0">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="7" column="1">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="8" column="0">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="8" column="1">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="9" column="0">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="9" column="1">
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QPushButton" name="hack_PushButton">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>121</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Name</string>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>10</y>
-        <width>121</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Process ID</string>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="hack_pushButton">
-      <property name="geometry">
-       <rect>
-        <x>270</x>
-        <y>170</y>
+        <x>190</x>
+        <y>340</y>
         <width>75</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text">
        <string>Hack</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="refresh_PushButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>340</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Refresh</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="processId_TextEdit">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>340</y>
+        <width>94</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
+      </property>
+      <property name="lineWrapColumnOrWidth">
+       <number>0</number>
+      </property>
+      <property name="placeholderText">
+       <string>Insert process ID</string>
       </property>
      </widget>
     </widget>
@@ -288,7 +418,7 @@ QMenu::item:selected {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>634</width>
+     <width>631</width>
      <height>22</height>
     </rect>
    </property>
@@ -318,8 +448,11 @@ QMenu::item:selected {
    </property>
   </action>
   <action name="hack_MenuAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Hack</string>
+    <string>Hack (disabled)</string>
    </property>
   </action>
   <action name="attach_MenuAction">
@@ -329,6 +462,13 @@ QMenu::item:selected {
   </action>
  </widget>
  <layoutdefault spacing="7" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QWidget</extends>
+   <header location="global">QtWebEngineWidgets/QWebEngineView</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="QtGuiApplication1.qrc"/>
  </resources>

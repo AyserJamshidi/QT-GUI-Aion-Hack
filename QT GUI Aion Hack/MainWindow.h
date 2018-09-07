@@ -12,14 +12,17 @@ public:
 	~MainWindow();
 	void MainWindow::HackLoop();
 	void MainWindow::InjectLoop();
+	void AnnounceText(QString message);
 	void SetStatusText(QString stringToSend);
+	void SetCellText();
 
 private:
 	Ui::MainWindow* ui;
 	void LoadHack(bool turnOn);
 
-	private slots:
+private slots:
 	void CloseProgram();
 	void StackedWidgetController(int CC);
-	void on_hack_pushButton_clicked();
+	void on_hack_PushButton_clicked();
+	void on_refresh_PushButton_clicked();
 };

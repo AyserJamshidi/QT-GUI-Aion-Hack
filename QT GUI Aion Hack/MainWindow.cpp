@@ -11,6 +11,7 @@
 #include <chrono>
 #include <iostream>
 #include <qfile.h>
+#include <qmessagebox.h>
 
 #define HOME_INDEX 0
 #define HACK_INDEX 1
@@ -24,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 	// Custom flags we can't set inside QT Designer
 	//setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint); // Disable window resizing
-	//QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
 	// Connect UI elements to actual functions
 	QSignalMapper* signalMapper = new QSignalMapper(this);
@@ -43,6 +43,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 	// Create Loading Gif
 	movie = new QMovie(":/images/Resources/loading.gif");
 	ui->aion_LoadingGif->setGeometry(QRect(0, 0, 636, 400));
+
+	// Other settings
+	QStringList labels = { "Name", "Character" }; // Container
+	ui->attach_TableWidget->setHorizontalHeaderLabels(labels); // Sets header labels
 }
 
 MainWindow::~MainWindow() {
@@ -53,8 +57,46 @@ void MainWindow::CloseProgram() {
 	QCoreApplication::quit();
 }
 
-void MainWindow::on_hack_pushButton_clicked() {
-	qDebug() << "Hi!!!";
+void MainWindow::on_hack_PushButton_clicked() {
+	ui->hack_PushButton->setEnabled(FALSE);
+	qDebug() << "Hack clicked!";
+	ui->processId_TextEdit->toPlainText();
+	ui->hack_PushButton->setEnabled(TRUE);
+
+	AnnounceText("Out of memory");
+
+
+	/*std::wstring TempPath;
+	wchar_t wcharPath[MAX_PATH];
+
+	if (GetTempPathW(MAX_PATH, wcharPath))
+		TempPath = wcharPath;
+
+	if (TempPath.length() > 0) {
+		HRESULT downloadResult = URLDownloadToFile(NULL, urlPath.c_str(), (TempPath + fileName).c_str(), NULL, NULL);
+
+		qDebug() << "Checking...";
+		if (downloadResult == S_OK) {
+			//StartProgram((TempPath + fileName).c_str(), L"-ip:123.123.123 -port:2106");
+			// TODO Make this download hack.
+			qDebug() << "Successful download!!";
+			QCoreApplication::quit();
+			return true;
+		} else if (downloadResult == E_OUTOFMEMORY) {
+			AnnounceText("Out of memory");
+		} else {
+			AnnounceText("Could not contact the server.");
+		}
+		return false;
+	}*/
+
+
+
+	///injector.exe /p 14880 /f "C:\Users\Ayser\Documents\Visual Studio 2017\MSVC Projects\D3 VTable\x64\Debug\D3 VTable Hook.dll" /m 0 /o 0 /l 0
+}
+
+void MainWindow::on_refresh_PushButton_clicked() {
+	qDebug() << "Refresh clicked!";
 }
 
 void MainWindow::StackedWidgetController(int CC) {
@@ -69,18 +111,19 @@ void MainWindow::StackedWidgetController(int CC) {
 			//LoadHack(TRUE);
 			break;
 		case 2: // attach_StackedWidget
-			ui->attach_TableWidget->setItem(0, 0, new QTableWidgetItem("Name"));
-			ui->attach_TableWidget->setItem(0, 1, new QTableWidgetItem("Process ID"));
-			ui->attach_TableWidget->item(0, 0)->setTextAlignment(Qt::AlignCenter);
-			ui->attach_TableWidget->item(0, 1)->setTextAlignment(Qt::AlignCenter);
-			std::thread mThread(&MainWindow::InjectLoop, this);
-			mThread.detach();
+			//QTableWidgetItem *testy = new QTableWidgetItem("Name");
+			//ui->attach_TableWidget->setItem(0, 0, testy);
+			//ui->attach_TableWidget->setItem(0, 1, new QTableWidgetItem("Process ID"));
+			//ui->attach_TableWidget->item(0, 0)->setTextAlignment(Qt::AlignCenter);
+			//ui->attach_TableWidget->item(0, 1)->setTextAlignment(Qt::AlignCenter);
+			//std::thread mThread(&MainWindow::InjectLoop, this);
+			//mThread.detach();
 			break;
 		}
 	//}
 }
 
-void MainWindow::LoadHack(bool turnOn) {
+/*void MainWindow::LoadHack(bool turnOn) {
 	if (turnOn) {
 		if (!movie->isValid())
 			QCoreApplication::quit();
@@ -94,11 +137,21 @@ void MainWindow::LoadHack(bool turnOn) {
 		if (movie->isValid())
 			movie->stop();
 	}
+}*/
+
+void MainWindow::AnnounceText(QString message) {
+	QMessageBox::information(this, "Oops!", "<html><head/><body><p><span style = \"font-size:10pt; color:#b01e3a;\">" + message + "</span></p></body></html>");
 }
 
-void MainWindow::SetStatusText(QString stringToSend) {
+void MainWindow::SetStatusText(QString strMsg) {
 	if (ui != NULL)
-		QMetaObject::invokeMethod(ui->statusLabel, "setText", Qt::QueuedConnection, Q_ARG(QString, stringToSend));
+		QMetaObject::invokeMethod(ui->statusLabel, "setText", Qt::QueuedConnection, Q_ARG(QString, strMsg));
+}
+
+void MainWindow::SetCellText() {
+	ui->attach_TableWidget->setItem(0, 0, new QTableWidgetItem("Name"));
+	//if (ui != NULL)
+	//	QMetaObject::invokeMethod(ui->attach_TableWidget, "setItem", Qt::DirectConnection, Q_ARG(int, 0), Q_ARG(int, 0), Q_ARG(QTableWidgetItem*, new QTableWidgetItem("asdfasdf")));
 }
 
 /*
@@ -107,11 +160,12 @@ void MainWindow::SetStatusText(QString stringToSend) {
  * ----------------------------------------------------------------------------------------------------------
  */
 
-void MainWindow::InjectLoop() {
+/*void MainWindow::InjectLoop() {
 	CommandLine cmdLine;
 
 	while (globalCurrentIndex == INJECT_INDEX) {
 		cmdLine.GetCommandLines();
+		SetCellText();
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 }
@@ -187,4 +241,4 @@ void MainWindow::HackLoop() {
 		xddID = NULL;
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
-}
+}*/
