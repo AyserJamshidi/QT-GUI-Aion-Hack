@@ -15,6 +15,7 @@ public:
 	void AnnounceText(QString message);
 	void SetStatusText(QString stringToSend);
 	void SetCellText();
+	void InitialToastNotif();
 
 private:
 	Ui::MainWindow* ui;

@@ -28,29 +28,47 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Source Files\LoginRequest">
-      <UniqueIdentifier>{bc2b0c75-e7c9-4f23-98c8-4d4cc87ffe2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\LoginRequests">
-      <UniqueIdentifier>{7d22d502-f01f-4d8c-a348-8256c886265b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Bypass">
       <UniqueIdentifier>{08d747d5-4b02-4ffb-9499-e643c12a473c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Bypass">
       <UniqueIdentifier>{b91485c9-6e7d-4f80-8009-ede73427246e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\WinToast">
-      <UniqueIdentifier>{869b6333-846e-463f-b052-376cf4cf1acf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\WinToast">
-      <UniqueIdentifier>{4c86bbde-5ff6-4c38-ae5e-5c5e6a4c2fef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Tools">
       <UniqueIdentifier>{0471cafc-30e5-4a0a-ac6a-5ca47c964c85}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Tools">
       <UniqueIdentifier>{39265942-ede1-47d7-a811-4e396871df29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools\WinToast">
+      <UniqueIdentifier>{869b6333-846e-463f-b052-376cf4cf1acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tools\WinToast">
+      <UniqueIdentifier>{4c86bbde-5ff6-4c38-ae5e-5c5e6a4c2fef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools\LoginRequest">
+      <UniqueIdentifier>{bc2b0c75-e7c9-4f23-98c8-4d4cc87ffe2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools\WMI">
+      <UniqueIdentifier>{4260484e-a6cb-4975-9a5e-3b73ceeda7b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tools\WMI">
+      <UniqueIdentifier>{71a71ba8-241e-440c-a5f5-3e52878daf45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tools\LoginRequest">
+      <UniqueIdentifier>{7d22d502-f01f-4d8c-a348-8256c886265b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tools\MD5Hash">
+      <UniqueIdentifier>{5e0558c4-beaa-4c6e-89c7-a2ead55c1272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools\MD5Hash">
+      <UniqueIdentifier>{5702fe41-b574-4e64-a1c4-2ebf82060ea7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ClientConnect">
+      <UniqueIdentifier>{4dde045c-3203-4e34-9b6d-fbe9fce567d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TCPClient">
+      <UniqueIdentifier>{b9362f9b-2bbf-44f8-8e83-55766dd0b557}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,9 +81,6 @@
     <ClCompile Include="MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LoginRequest.cpp">
-      <Filter>Source Files\LoginRequest</Filter>
-    </ClCompile>
     <ClCompile Include="Bypass\MainBypass.cpp">
       <Filter>Source Files\Bypass</Filter>
     </ClCompile>
@@ -75,14 +90,32 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="WinToast\WinToast.cpp">
-      <Filter>Source Files\WinToast</Filter>
-    </ClCompile>
     <ClCompile Include="FindMainWindowHWND.cpp">
       <Filter>Source Files\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Tools\CommandLine.cpp">
       <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\WinToast\WinToast.cpp">
+      <Filter>Source Files\Tools\WinToast</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\WMI\WMI_Information.cpp">
+      <Filter>Source Files\Tools\WMI</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\LoginRequest\LoginRequest.cpp">
+      <Filter>Source Files\Tools\LoginRequest</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\MD5Hash\md5.cpp">
+      <Filter>Source Files\Tools\MD5Hash</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPClient\TCPClient.cpp">
+      <Filter>Source Files\ClientConnect</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_TCPClient.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_TCPClient.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,25 +128,37 @@
     <CustomBuild Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="TCPClient\TCPClient.h">
+      <Filter>Header Files\TCPClient</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_QtGuiApplication1.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="LoginRequests.h">
-      <Filter>Header Files\LoginRequests</Filter>
-    </ClInclude>
-    <ClInclude Include="Bypass\MainBypass.h">
+    <ClInclude Include="Bypass\MainBypass.hpp">
       <Filter>Header Files\Bypass</Filter>
     </ClInclude>
-    <ClInclude Include="WinToast\WinToast.h">
-      <Filter>Header Files\WinToast</Filter>
-    </ClInclude>
-    <ClInclude Include="FindMainWindowHWND.h">
+    <ClInclude Include="Tools\CommandLine.hpp">
       <Filter>Header Files\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\CommandLine.h">
+    <ClInclude Include="FindMainWindowHWND.hpp">
       <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\WinToast\WinToast.h">
+      <Filter>Header Files\Tools\WinToast</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\WinToast\ToastHandler.hpp">
+      <Filter>Header Files\Tools\WinToast</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\LoginRequest\LoginRequests.hpp">
+      <Filter>Header Files\Tools\LoginRequest</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\WMI\WMI_Information.hpp">
+      <Filter>Header Files\Tools\WMI</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\MD5Hash\md5.hpp">
+      <Filter>Header Files\Tools\MD5Hash</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

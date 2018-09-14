@@ -57,6 +57,23 @@ QMenu::item:selected {
 }</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget#centralWidget {
+	background-color: rgb(38, 38, 38);
+}
+
+QCheckBox, QLineEdit {
+	color: rgb(176, 30, 58);
+}
+
+QPushButton {
+	background-color: rgb(60, 60, 60);
+	color: rgb(176, 30, 58);
+}</string>
+   </property>
    <widget class="QStackedWidget" name="MainWindowStackedWidget">
     <property name="enabled">
      <bool>true</bool>
@@ -425,6 +442,9 @@ QMenu::item:selected {
    <widget class="QMenu" name="menuNew">
     <property name="title">
      <string>Menu</string>
+    </property>
+    <property name="separatorsCollapsible">
+     <bool>false</bool>
     </property>
     <addaction name="home_MenuAction"/>
     <addaction name="hack_MenuAction"/>

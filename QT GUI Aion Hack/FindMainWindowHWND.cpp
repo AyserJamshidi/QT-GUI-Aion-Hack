@@ -1,4 +1,4 @@
-#include "FindMainWindowHWND.h"
+#include "FindMainWindowHWND.hpp"
 
 struct handle_data {
 	unsigned long process_id;

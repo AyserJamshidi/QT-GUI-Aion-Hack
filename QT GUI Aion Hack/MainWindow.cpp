@@ -1,7 +1,9 @@
 #include "MainWindow.h"
-#include "Bypass\MainBypass.h"
-#include "FindMainWindowHWND.h"
-#include "Tools\CommandLine.h"
+#include "Bypass/MainBypass.hpp"
+#include "FindMainWindowHWND.hpp"
+#include "Tools/CommandLine.hpp"
+#include "Tools/WinToast/WinToast.h"
+#include "Tools/WinToast/ToastHandler.hpp"
 
 #include <qdebug.h>
 #include <qsignalmapper.h>
@@ -12,6 +14,7 @@
 #include <iostream>
 #include <qfile.h>
 #include <qmessagebox.h>
+#include <qdiriterator.h>
 
 #define HOME_INDEX 0
 #define HACK_INDEX 1
@@ -22,9 +25,6 @@ int globalCurrentIndex;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
 	ui->setupUi(this);
-
-	// Custom flags we can't set inside QT Designer
-	//setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint); // Disable window resizing
 
 	// Connect UI elements to actual functions
 	QSignalMapper* signalMapper = new QSignalMapper(this);
@@ -47,6 +47,33 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 	// Other settings
 	QStringList labels = { "Name", "Character" }; // Container
 	ui->attach_TableWidget->setHorizontalHeaderLabels(labels); // Sets header labels
+
+	//InitialToastNotif();
+}
+
+void MainWindow::InitialToastNotif() {
+	WinToastLib::WinToast::instance()->setAppName(L"Lmfaoown's Aion Hack");
+	WinToastLib::WinToast::instance()->setAppUserModelId(
+		WinToastLib::WinToast::configureAUMI(L"company", L"product", L"subproduct", L"version"));
+
+	if (!WinToastLib::WinToast::instance()->initialize()) {
+		qDebug() << "Error, your system in not compatible!";
+	}
+
+	WinToastLib::WinToastTemplate templ = WinToastLib::WinToastTemplate(WinToastLib::WinToastTemplate::Text02);
+	//templ.setImagePath(L":/images/Resources/Logo.png");
+	templ.setTextField(L"Lmfaoown's Aion Hack", WinToastLib::WinToastTemplate::FirstLine);
+	templ.setTextField(L"Welcome PLAYER.", WinToastLib::WinToastTemplate::SecondLine);
+	//templ.setTextField(L"Third Line.", WinToastLib::WinToastTemplate::ThirdLine);
+	//templ.setExpiration(3 * 1000);
+	//templ.setDuration()
+	//templ.addAction(L"Yes");
+	//templ.addAction(L"No");
+
+
+	if (WinToastLib::WinToast::instance()->showToast(templ, new ToastHandler()) < 0) {
+		QMessageBox::warning(this, "Error", "Could not launch your toast notification!");
+	}
 }
 
 MainWindow::~MainWindow() {
@@ -63,9 +90,17 @@ void MainWindow::on_hack_PushButton_clicked() {
 	ui->processId_TextEdit->toPlainText();
 	ui->hack_PushButton->setEnabled(TRUE);
 
-	AnnounceText("Out of memory");
+	//AnnounceText("Out of memory");
 
+	std::wstring TempPath;
+	wchar_t wcharPath[MAX_PATH];
 
+	if (GetTempPathW(MAX_PATH, wcharPath))
+		TempPath = wcharPath;
+
+	if (TempPath.length() > 0) {
+		//HRESULT downloadResult = URLDownloadToFile(NULL, urlPath.c_str(), (TempPath + fileName).c_str(), NULL, NULL);
+	}
 	/*std::wstring TempPath;
 	wchar_t wcharPath[MAX_PATH];
 
@@ -92,7 +127,7 @@ void MainWindow::on_hack_PushButton_clicked() {
 
 
 
-	///injector.exe /p 14880 /f "C:\Users\Ayser\Documents\Visual Studio 2017\MSVC Projects\D3 VTable\x64\Debug\D3 VTable Hook.dll" /m 0 /o 0 /l 0
+	//injector.exe /p 14880 /f "C:\Users\Ayser\Documents\Visual Studio 2017\MSVC Projects\D3 VTable\x64\Debug\D3 VTable Hook.dll" /m 0 /o 0 /l 0
 }
 
 void MainWindow::on_refresh_PushButton_clicked() {
@@ -140,7 +175,14 @@ void MainWindow::StackedWidgetController(int CC) {
 }*/
 
 void MainWindow::AnnounceText(QString message) {
-	QMessageBox::information(this, "Oops!", "<html><head/><body><p><span style = \"font-size:10pt; color:#b01e3a;\">" + message + "</span></p></body></html>");
+	QMessageBox test;
+	test.setMinimumWidth(400);
+	test.setMinimumHeight(300);
+	test.setWindowTitle("Lmfaoown's Aion Hack");
+	test.setText(message);
+	test.setStyleSheet("background-color: rgb(38, 38, 38); color: #b01e3a;");
+	test.exec();
+	//QMessageBox::information(this, "Lmfaoown's Aion Hack", "<html><head/><body><p><span style = \"font-size:10pt; color:#b01e3a;\">" + message + "</span></p></body></html>");
 }
 
 void MainWindow::SetStatusText(QString strMsg) {

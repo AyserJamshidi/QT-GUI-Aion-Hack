@@ -1,7 +1,7 @@
 // TestXE3.cpp : Defines the entry point for the console application.
 //
 
-#include "MainBypass.h"
+#include "MainBypass.hpp"
 
 #include <String>
 #include <Psapi.h>

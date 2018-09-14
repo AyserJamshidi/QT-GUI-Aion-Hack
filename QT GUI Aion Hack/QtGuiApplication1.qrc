@@ -2,5 +2,6 @@
     <qresource prefix="/QtGuiApplication1"/>
     <qresource prefix="/images">
         <file>Resources/loading.gif</file>
+        <file>Resources/Logo.png</file>
     </qresource>
 </RCC>

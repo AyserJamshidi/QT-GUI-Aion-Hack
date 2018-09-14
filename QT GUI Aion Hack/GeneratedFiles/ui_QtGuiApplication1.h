@@ -89,6 +89,19 @@ public:
         attach_MenuAction->setObjectName(QStringLiteral("attach_MenuAction"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        centralWidget->setEnabled(true);
+        centralWidget->setStyleSheet(QLatin1String("QWidget#centralWidget {\n"
+"	background-color: rgb(38, 38, 38);\n"
+"}\n"
+"\n"
+"QCheckBox, QLineEdit {\n"
+"	color: rgb(176, 30, 58);\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"	background-color: rgb(60, 60, 60);\n"
+"	color: rgb(176, 30, 58);\n"
+"}"));
         MainWindowStackedWidget = new QStackedWidget(centralWidget);
         MainWindowStackedWidget->setObjectName(QStringLiteral("MainWindowStackedWidget"));
         MainWindowStackedWidget->setEnabled(true);
@@ -129,6 +142,66 @@ public:
             attach_TableWidget->setColumnCount(2);
         if (attach_TableWidget->rowCount() < 10)
             attach_TableWidget->setRowCount(10);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        __qtablewidgetitem->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(0, 0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        __qtablewidgetitem1->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(0, 1, __qtablewidgetitem1);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        __qtablewidgetitem2->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(1, 0, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        __qtablewidgetitem3->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(1, 1, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        __qtablewidgetitem4->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(2, 0, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        __qtablewidgetitem5->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(2, 1, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        __qtablewidgetitem6->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(3, 0, __qtablewidgetitem6);
+        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        __qtablewidgetitem7->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(3, 1, __qtablewidgetitem7);
+        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
+        __qtablewidgetitem8->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(4, 0, __qtablewidgetitem8);
+        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
+        __qtablewidgetitem9->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(4, 1, __qtablewidgetitem9);
+        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
+        __qtablewidgetitem10->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(5, 0, __qtablewidgetitem10);
+        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
+        __qtablewidgetitem11->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(5, 1, __qtablewidgetitem11);
+        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
+        __qtablewidgetitem12->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(6, 0, __qtablewidgetitem12);
+        QTableWidgetItem *__qtablewidgetitem13 = new QTableWidgetItem();
+        __qtablewidgetitem13->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(6, 1, __qtablewidgetitem13);
+        QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
+        __qtablewidgetitem14->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(7, 0, __qtablewidgetitem14);
+        QTableWidgetItem *__qtablewidgetitem15 = new QTableWidgetItem();
+        __qtablewidgetitem15->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(7, 1, __qtablewidgetitem15);
+        QTableWidgetItem *__qtablewidgetitem16 = new QTableWidgetItem();
+        __qtablewidgetitem16->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(8, 0, __qtablewidgetitem16);
+        QTableWidgetItem *__qtablewidgetitem17 = new QTableWidgetItem();
+        __qtablewidgetitem17->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(8, 1, __qtablewidgetitem17);
+        QTableWidgetItem *__qtablewidgetitem18 = new QTableWidgetItem();
+        __qtablewidgetitem18->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(9, 0, __qtablewidgetitem18);
+        QTableWidgetItem *__qtablewidgetitem19 = new QTableWidgetItem();
+        __qtablewidgetitem19->setTextAlignment(Qt::AlignCenter);
+        attach_TableWidget->setItem(9, 1, __qtablewidgetitem19);
         attach_TableWidget->setObjectName(QStringLiteral("attach_TableWidget"));
         attach_TableWidget->setEnabled(false);
         attach_TableWidget->setGeometry(QRect(10, 10, 254, 326));
@@ -176,6 +249,7 @@ public:
         menuBar->setGeometry(QRect(0, 0, 631, 22));
         menuNew = new QMenu(menuBar);
         menuNew->setObjectName(QStringLiteral("menuNew"));
+        menuNew->setSeparatorsCollapsible(false);
         MainWindow->setMenuBar(menuBar);
 
         menuBar->addAction(menuNew->menuAction());
@@ -203,6 +277,11 @@ public:
         mainPage_LoadingGif->setText(QString());
         aion_LoadingGif->setText(QString());
         statusLabel->setText(QApplication::translate("MainWindow", "Receiving data from server...", nullptr));
+
+        const bool __sortingEnabled = attach_TableWidget->isSortingEnabled();
+        attach_TableWidget->setSortingEnabled(false);
+        attach_TableWidget->setSortingEnabled(__sortingEnabled);
+
 #ifndef QT_NO_TOOLTIP
         attach_TableWidget->setToolTip(QString());
 #endif // QT_NO_TOOLTIP

@@ -4,7 +4,7 @@
 #include <Wbemidl.h>
 #include <assert.h>
 
-#include "CommandLine.h"
+#include "CommandLine.hpp"
 
 #pragma comment(lib, "wbemuuid.lib")
 
